@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ทำงานจากบ้าน - บอกรักแฟนแบบกวนๆ</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffcccb; /* สีพื้นหลังเดิม */
+            color: #333;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        .button {
+            background-color: #ff6666; /* สีปุ่มเดิม */
+            color: white;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .button:hover {
+            background-color: #ff3333; /* สีปุ่มเมื่อ hover */
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+            perspective: 1000px;
+        }
+        .image-wrapper {
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            backface-visibility: hidden;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        .flip {
+            transform: rotateY(180deg);
+        }
+        #imageText {
+            font-size: 1.5em;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>ทำงานจากบ้าน - บอกรักแฟนแบบกวนๆ</h1>
+    <p>กดมาทำไม อยากดูมั้ย อยากดูกดเลย</p>
+    <button class="button" onclick="showLove()">ดูเลย</button>
+    <p id="loveText" style="display: none; font-size: 1.5em;">ให้คะแนนความชอบ 🐷🔥</p>
+    <button class="button" id="loveButton" style="display: none;" onclick="increaseLove()">กดคะแนน ⭐</button>
+    <p id="loveCount" style="display: none; font-size: 1.2em;">ระดับความรัก: 1 ⭐</p>
+    
+    <div class="image-container">
+        <div class="image-wrapper" id="imageWrapper">
+            <img id="loveImage" src="">
+        </div>
+        <p id="imageText"></p>
+        <button class="button" id="nextImageButton" style="display: none; margin-top: 10px;" onclick="showNextImage()">ดูรูปต่อไป 📷</button>
+    </div>
+    
+    <script>
+        let loveLevel = 1;
+        let images = [
+            {src: "https://img5.pic.in.th/file/secure-sv1/192ab780a94c262f6.jpg", text: "รูปนี้น่ารัก ท่าทางการยืนดูเป็นธรรมชาติ ❤️"},
+            {src: "https://img2.pic.in.th/pic/24c6c4d0ad8e9238f.jpg", text: "รูปนี้พื้นหลังสวย แต่คนสวยกว่า 🥰"},
+            {src: "https://img5.pic.in.th/file/secure-sv1/3feaa2eae9e45ea62.jpg", text: "เล่นอะไรเป็นเด็กเลยไอควา 💕"},
+            {src: "https://img2.pic.in.th/pic/4e222fcf17ef9d1e7.jpg", text: "แต่ชอบรูปนี้สุดดูมีความเป็นเด็กออทิสติก นะระ 😘"}
+        ];
+        let imageIndex = 0;
+        
+        function showLove() {
+            document.getElementById("loveText").style.display = "block";
+            document.getElementById("loveButton").style.display = "inline-block";
+            document.getElementById("loveCount").style.display = "block";
+            document.getElementById("loveImage").src = images[imageIndex].src;
+            document.getElementById("loveImage").style.display = "block";
+            document.getElementById("imageText").innerText = images[imageIndex].text;
+            document.getElementById("imageText").style.display = "block";
+            document.getElementById("nextImageButton").style.display = "inline-block";
+        }
+        
+        function increaseLove() {
+            loveLevel++;
+            document.getElementById("loveCount").innerHTML = "ระดับคะแนน: " + loveLevel + " ⭐";
+        }
+        
+        function showNextImage() {
+            let imageWrapper = document.getElementById("imageWrapper");
+            imageWrapper.classList.add("flip");
+            
+            setTimeout(() => {
+                imageIndex = (imageIndex + 1) % images.length;
+                document.getElementById("loveImage").src = images[imageIndex].src;
+                document.getElementById("imageText").innerText = images[imageIndex].text;
+                imageWrapper.classList.remove("flip");
+            }, 600);
+        }
+    </script>
+</body>
+</html>
